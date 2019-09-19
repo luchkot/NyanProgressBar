@@ -5,10 +5,11 @@ import com.intellij.ui.JBColor;
 import com.intellij.util.ui.GraphicsUtil;
 import com.intellij.util.ui.JBUI;
 import com.intellij.util.ui.UIUtil;
-import sun.swing.SwingUtilities2;
+//import sun.swing.SwingUtilities2;
 
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;
+import javax.swing.plaf.basic.BasicGraphicsUtils;
 import javax.swing.plaf.basic.BasicProgressBarUI;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
@@ -17,7 +18,6 @@ import java.awt.geom.*;
 
 public class NyanProgressBarUi extends BasicProgressBarUI {
     private static final float ONE_OVER_SEVEN = 1f / 7;
-    private static final Color VIOLET = new Color(90, 0, 157);
 
 
     @SuppressWarnings({"MethodOverridesStaticMethodOfSuperclass", "UnusedDeclaration"})
@@ -74,7 +74,7 @@ public class NyanProgressBarUi extends BasicProgressBarUI {
 
         LinearGradientPaint baseRainbowPaint = new LinearGradientPaint(0, JBUI.scale(2), 0, h - JBUI.scale(6),
                 new float[]{ONE_OVER_SEVEN * 1, ONE_OVER_SEVEN * 2, ONE_OVER_SEVEN * 3, ONE_OVER_SEVEN * 4, ONE_OVER_SEVEN * 5, ONE_OVER_SEVEN * 6, ONE_OVER_SEVEN * 7},
-                new Color[]{Color.RED, Color.ORANGE, Color.YELLOW, Color.GREEN, Color.cyan, Color.blue, VIOLET});
+                new Color[]{new Color(128,70,82), new Color(133,87,71), new Color(123,136,97), new Color(55,119,81), new Color(50,121,136), new Color(41,90,129), new Color(87,72,131)});
 
         g.setPaint(baseRainbowPaint);
 
@@ -210,7 +210,7 @@ public class NyanProgressBarUi extends BasicProgressBarUI {
 //        g2.setColor(progressBar.getForeground());
         g2.setPaint(new LinearGradientPaint(0, JBUI.scale(2), 0, h - JBUI.scale(6),
                 new float[]{ONE_OVER_SEVEN * 1, ONE_OVER_SEVEN * 2, ONE_OVER_SEVEN * 3, ONE_OVER_SEVEN * 4, ONE_OVER_SEVEN * 5, ONE_OVER_SEVEN * 6, ONE_OVER_SEVEN * 7},
-                new Color[]{Color.RED, Color.ORANGE, Color.YELLOW, Color.GREEN, Color.cyan, Color.blue, VIOLET}));
+                new Color[]{new Color(128,70,82), new Color(133,87,71), new Color(123,136,97), new Color(55,119,81), new Color(50,121,136), new Color(41,90,129), new Color(87,72,131)}));
 
         NyanIcons.CAT_ICON.paintIcon(progressBar, g2, amountFull - JBUI.scale(10), -JBUI.scale(6));
         g2.fill(new RoundRectangle2D.Float(2f*off,2f*off, amountFull - JBUI.scale(5f), h - JBUI.scale(5f), JBUI.scale(7f), JBUI.scale(7f)));
@@ -239,11 +239,11 @@ public class NyanProgressBarUi extends BasicProgressBarUI {
 
         if (progressBar.getOrientation() == SwingConstants.HORIZONTAL) {
             g2.setColor(getSelectionBackground());
-            SwingUtilities2.drawString(progressBar, g2, progressString,
+            BasicGraphicsUtils.drawString(progressBar, g2, progressString,
                     renderLocation.x, renderLocation.y);
             g2.setColor(getSelectionForeground());
             g2.clipRect(fillStart, y, amountFull, h);
-            SwingUtilities2.drawString(progressBar, g2, progressString,
+			BasicGraphicsUtils.drawString(progressBar, g2, progressString,
                     renderLocation.x, renderLocation.y);
         } else { // VERTICAL
             g2.setColor(getSelectionBackground());
@@ -252,11 +252,11 @@ public class NyanProgressBarUi extends BasicProgressBarUI {
             g2.setFont(progressBar.getFont().deriveFont(rotate));
             renderLocation = getStringPlacement(g2, progressString,
                     x, y, w, h);
-            SwingUtilities2.drawString(progressBar, g2, progressString,
+			BasicGraphicsUtils.drawString(progressBar, g2, progressString,
                     renderLocation.x, renderLocation.y);
             g2.setColor(getSelectionForeground());
             g2.clipRect(x, fillStart, w, amountFull);
-            SwingUtilities2.drawString(progressBar, g2, progressString,
+			BasicGraphicsUtils.drawString(progressBar, g2, progressString,
                     renderLocation.x, renderLocation.y);
         }
         g2.setClip(oldClip);
